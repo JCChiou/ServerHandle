@@ -1,3 +1,5 @@
+
+// 找不到資源 404
 export class NotFoundError extends Error {
 	constructor(message) {
 		super(message);
@@ -5,14 +7,19 @@ export class NotFoundError extends Error {
 	}
 }
 
+// 參數格式不符合 400
+export class ArgumentError extends Error {
+	constructor(message) {
+		super(message);
+		this.name = this.constructor.name;
+	}
+}
 
-export const errorHandler = async (ctx, next) => {
-  try {
-    await next();
-  } catch (err) {
-    err.status = err.statusCode || err.status || 500;
-    ctx.body = {
-      message: err.message,
-    };
-  }
-};
+// token無效 || 沒有權限存取資源 403
+export class Unauthorized extends Error {
+	constructor(message) {
+		super(message);
+		this.name = this.constructor.name;
+	}
+}
+
